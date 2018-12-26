@@ -13,9 +13,6 @@ import Wizard from "views/Forms/Wizard.jsx";
 import RegularTables from "views/Tables/RegularTables.jsx";
 import ExtendedTables from "views/Tables/ExtendedTables.jsx";
 import ReactTables from "views/Tables/ReactTables.jsx";
-import GoogleMaps from "views/Maps/GoogleMaps.jsx";
-import FullScreenMap from "views/Maps/FullScreenMap.jsx";
-import VectorMap from "views/Maps/VectorMap.jsx";
 import Charts from "views/Charts/Charts.jsx";
 import Calendar from "views/Calendar/Calendar.jsx";
 import Widgets from "views/Widgets/Widgets.jsx";
@@ -31,7 +28,6 @@ import Image from "@material-ui/icons/Image";
 import Apps from "@material-ui/icons/Apps";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import GridOn from "@material-ui/icons/GridOn";
-import Place from "@material-ui/icons/Place";
 import WidgetsIcon from "@material-ui/icons/Widgets";
 import Timeline from "@material-ui/icons/Timeline";
 import DateRange from "@material-ui/icons/DateRange";
@@ -170,33 +166,6 @@ var dashRoutes = [
         name: "React Tables",
         mini: "RT",
         component: ReactTables
-      }
-    ]
-  },
-  {
-    collapse: true,
-    path: "/maps",
-    name: "Maps",
-    state: "openMaps",
-    icon: Place,
-    views: [
-      {
-        path: "/maps/google-maps",
-        name: "Google Maps",
-        mini: "GM",
-        component: GoogleMaps
-      },
-      {
-        path: "/maps/full-screen-maps",
-        name: "Full Screen Map",
-        mini: "FSM",
-        component: FullScreenMap
-      },
-      {
-        path: "/maps/vector-maps",
-        name: "Vector Map",
-        mini: "VM",
-        component: VectorMap
       }
     ]
   },
