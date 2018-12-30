@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 const { MONGODB_URI } = require('../../setup');
 
-function connect() {
+function connect () {
   mongoose.connect(MONGODB_URI, { useNewUrlParser: true, uri_decode_auth: true });
 
   mongoose.connection.on("open", function () {
@@ -18,6 +18,7 @@ function connect() {
   mongoose.connection.on("reconnected", function () {
     console.log("Re-connected to MongoDB");
   });
+  return mongoose.connection;
 }
 
 module.exports = connect;
