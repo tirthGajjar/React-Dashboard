@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -23,13 +24,15 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
 
+const loginServie = require('../../service/login');
+
 class LoginPage extends React.Component {
     constructor (props) {
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {
             cardAnimaton: "cardHidden",
-            isLoggedIn: false
+            isLoggedIn: false,
         };
     }
     componentDidMount () {
@@ -49,6 +52,12 @@ class LoginPage extends React.Component {
         this.setState({ isLoggedIn: true });
         console.log("set state");
     }
+
+    handleClick(){
+        console.log("handle CLick");
+        loginServie.login({a:2,b:3})
+    }
+
     render () {
         const { classes } = this.props;
         return (
@@ -128,7 +137,7 @@ class LoginPage extends React.Component {
                                     />
                                 </CardBody>
                                 <CardFooter className={classes.justifyContentCenter}>
-                                    <Button color="rose" simple size="lg" onClick={this.handleClick} block>
+                                    <Button color="rose" simple size="lg" onClick={this.handleClick.bind(this)}>
                                         Let's Go
                                     </Button>
                                 </CardFooter>

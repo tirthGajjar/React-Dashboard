@@ -4,8 +4,9 @@ var taskController = require('../controller/task.controller');
 var User = require('../model/user.model');
 
 
-router.post('/post', () => {
-    taskController.addTask();
+router.post('/post', (req, res, next) => {
+    const data = req.body.data;
+    console.log('data: ', data);
 });
 
 router.get('/verifyIsAdmin', () => {
