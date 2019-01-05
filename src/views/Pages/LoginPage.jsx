@@ -10,7 +10,7 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
-// import LockOutline from "@material-ui/icons/LockOutline";
+import LockOutline from "@material-ui/icons/LockOutline";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -24,22 +24,28 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
 
-const loginServie = require('../../service/login');
+const loginService = require('../../service/login');
 
 class LoginPage extends React.Component {
     constructor (props) {
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {
-            cardAnimaton: "cardHidden",
-            isLoggedIn: false,
-            userDetails: {
-                userName: '',
-                email: '',
-                password: ''
-            }
+            userEmail: "",
+            userPwd: "",
+            cardAnimaton: "cardHidden"
         };
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePwChange = this.handlePwChange.bind(this);
     }
+    handleEmailChange (event) {
+        this.setState({ userEmail: event.target.value });
+    }
+
+    handlePwChange (event) {
+        this.setState({ userPwd: event.target.value });
+    }
+
     componentDidMount () {
         // we add a hidden class to the card and after 700 ms we delete it and the transition appears
         this.timeOutFunction = setTimeout(
@@ -58,6 +64,7 @@ class LoginPage extends React.Component {
         console.log("set state");
     }
 
+    handleClick () {
     onChange(key, value){
         console.log('Key: ', key, 'Value: ', value);
         var userDetails = this.state.userDetails;
@@ -68,7 +75,7 @@ class LoginPage extends React.Component {
 
     handleClick(){
         console.log("handle CLick");
-        loginServie.login({a:2,b:3})
+        loginService.login({ a: 2, b: 3 })
     }
 
     render () {
@@ -125,6 +132,9 @@ class LoginPage extends React.Component {
                                             fullWidth: true
                                         }}
                                         inputProps={{
+                                            onChange: event =>
+                                                this.handleEmailChange(event, "userEmail", "email"),
+                                            type: "email",
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Email className={classes.inputAdornmentIcon} />
@@ -133,12 +143,16 @@ class LoginPage extends React.Component {
                                         }}
                                     />
                                     <CustomInput
+                                        onChange={this.handlePwChange}
                                         labelText="Password"
                                         id="password"
                                         formControlProps={{
                                             fullWidth: true
                                         }}
                                         inputProps={{
+                                            onChange: event =>
+                                                this.handlePwChange(event, "userPwd", "password"),
+                                            type: "password",
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Icon className={classes.inputAdornmentIcon}>
@@ -150,7 +164,17 @@ class LoginPage extends React.Component {
                                     />
                                 </CardBody>
                                 <CardFooter className={classes.justifyContentCenter}>
-                                    <Button color="rose" simple size="lg" onClick={this.handleClick.bind(this)}>
+                                    <Button color="rose" simple size="lg" onClick={() => {
+                                        let auth = new Auth();
+                                        loginService.login(this.state.userEmail, this.state.userPwd)
+                                            .then(response => {
+                                                if (response.state === "success") {
+                                                    this.props.history.push("/dashboard");
+                                                } else {
+                                                    alert("Access Denied");
+                                                }
+                                            });
+                                    }} >
                                         Let's Go
                                     </Button>
                                 </CardFooter>
