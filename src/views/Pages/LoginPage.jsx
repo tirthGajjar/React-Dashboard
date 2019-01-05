@@ -24,7 +24,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
 
-const loginServie = require('../../service/login');
+const loginService = require('../../service/login');
 
 class LoginPage extends React.Component {
     constructor (props) {
@@ -66,7 +66,7 @@ class LoginPage extends React.Component {
 
     handleClick () {
         console.log("handle CLick");
-        loginServie.login({ a: 2, b: 3 })
+        loginService.login({ a: 2, b: 3 })
     }
 
     render () {
@@ -155,7 +155,17 @@ class LoginPage extends React.Component {
                                     />
                                 </CardBody>
                                 <CardFooter className={classes.justifyContentCenter}>
-                                    <Button color="rose" simple size="lg" onClick={this.handleClick.bind(this)}>
+                                    <Button color="rose" simple size="lg" onClick={() => {
+                                        let auth = new Auth();
+                                        loginService.login(this.state.userEmail, this.state.userPwd)
+                                            .then(response => {
+                                                if (response.state === "success") {
+                                                    this.props.history.push("/dashboard");
+                                                } else {
+                                                    alert("Access Denied");
+                                                }
+                                            });
+                                    }} >
                                         Let's Go
                                     </Button>
                                 </CardFooter>
