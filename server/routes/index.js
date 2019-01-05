@@ -5,12 +5,32 @@ var User = require('../model/user.model');
 
 
 router.post('/post', (req, res, next) => {
-    const data = req.body.data;
+    const data = req.body;
     console.log('data: ', data);
+    res.status(200).send({ status:true, response: data });
 });
 
 router.get('/verifyIsAdmin', () => {
     console.log('GET ---- ')
+});
+
+router.post('/login', function (req, res, next) {
+    let userName = req.body.userName;
+    let email = req.body.email;
+    let password = req.body.password;
+    if(userName && email && password){
+        User.authenticate(email, password, function (error, user) {
+            if (error || !user) {
+                res.status(200).send({ status:false, response: [] , msg: 'Wrong email or password.' });
+            } else {
+                // req.session.userId = user._id;
+                // return res.redirect('/profile');
+                res.status(200).send({ status:true, response: 'Suceess' });
+            }
+        });
+    } else {
+        res.status(200).send({ status:false, response: [] , msg: 'Please enter Valid First Name, Email or Password' });
+    }
 });
 
 //POST route for updating data

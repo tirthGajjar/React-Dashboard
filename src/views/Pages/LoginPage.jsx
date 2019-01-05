@@ -33,6 +33,11 @@ class LoginPage extends React.Component {
         this.state = {
             cardAnimaton: "cardHidden",
             isLoggedIn: false,
+            userDetails: {
+                userName: '',
+                email: '',
+                password: ''
+            }
         };
     }
     componentDidMount () {
@@ -53,6 +58,14 @@ class LoginPage extends React.Component {
         console.log("set state");
     }
 
+    onChange(key, value){
+        console.log('Key: ', key, 'Value: ', value);
+        var userDetails = this.state.userDetails;
+        console.log('userDetails: ', userDetails);
+        userDetails[key] = value;
+        this.setState({ userDetails: userDetails });
+    }
+
     handleClick(){
         console.log("handle CLick");
         loginServie.login({a:2,b:3})
@@ -71,7 +84,7 @@ class LoginPage extends React.Component {
                                     color="rose"
                                 >
                                     <h4 className={classes.cardTitle}>Log in</h4>
-                                    <div className={classes.socialLine}>
+                                    {/*<div className={classes.socialLine}>
                                         {[
                                             "fab fa-facebook-square",
                                             "fab fa-twitter",
@@ -88,7 +101,7 @@ class LoginPage extends React.Component {
                                                 </Button>
                                             );
                                         })}
-                                    </div>
+                                    </div>*/}
                                 </CardHeader>
                                 <CardBody>
                                     <CustomInput
