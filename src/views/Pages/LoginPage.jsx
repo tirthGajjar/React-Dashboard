@@ -10,7 +10,7 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
-// import LockOutline from "@material-ui/icons/LockOutline";
+import LockOutline from "@material-ui/icons/LockOutline";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -31,10 +31,21 @@ class LoginPage extends React.Component {
         super(props);
         // we use this to make the card to appear after the page has been rendered
         this.state = {
-            cardAnimaton: "cardHidden",
-            isLoggedIn: false,
+            userEmail: "",
+            userPwd: "",
+            cardAnimaton: "cardHidden"
         };
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePwChange = this.handlePwChange.bind(this);
     }
+    handleEmailChange (event) {
+        this.setState({ userEmail: event.target.value });
+    }
+
+    handlePwChange (event) {
+        this.setState({ userPwd: event.target.value });
+    }
+
     componentDidMount () {
         // we add a hidden class to the card and after 700 ms we delete it and the transition appears
         this.timeOutFunction = setTimeout(
@@ -53,9 +64,9 @@ class LoginPage extends React.Component {
         console.log("set state");
     }
 
-    handleClick(){
+    handleClick () {
         console.log("handle CLick");
-        loginServie.login({a:2,b:3})
+        loginServie.login({ a: 2, b: 3 })
     }
 
     render () {
@@ -112,6 +123,9 @@ class LoginPage extends React.Component {
                                             fullWidth: true
                                         }}
                                         inputProps={{
+                                            onChange: event =>
+                                                this.handleEmailChange(event, "userEmail", "email"),
+                                            type: "email",
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Email className={classes.inputAdornmentIcon} />
@@ -120,12 +134,16 @@ class LoginPage extends React.Component {
                                         }}
                                     />
                                     <CustomInput
+                                        onChange={this.handlePwChange}
                                         labelText="Password"
                                         id="password"
                                         formControlProps={{
                                             fullWidth: true
                                         }}
                                         inputProps={{
+                                            onChange: event =>
+                                                this.handlePwChange(event, "userPwd", "password"),
+                                            type: "password",
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <Icon className={classes.inputAdornmentIcon}>
