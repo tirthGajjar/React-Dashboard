@@ -30,7 +30,7 @@
     "react-dom": "16.5.2",
     "react-jvectormap": "0.0.3",
     "react-router-dom": "4.3.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "5.0.1",
     "react-swipeable-views": "0.13.0",
     "react-table": "6.8.6",
     "react-tagsinput": "3.19.0"
@@ -52,7 +52,7 @@
     "install:clean-w": "npm run node_modules-w && npm install && npm start"
   },
   "optionalDependencies": {
-    "@babel/core": "7.0.0",
+    "@babel/core": "7.20.7",
     "@types/markerclustererplus": "2.1.33",
     "ajv": "5.0.0",
     "babel-eslint": "7.2.3",
